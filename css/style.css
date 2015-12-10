@@ -1,0 +1,56 @@
+/*CSS Reset required or it doesnt play right with Chrome'*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/*CSS for the key's title*/
+#title{
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-size: 169px;
+    float: left;
+    height: 208px;
+    position: absolute;
+    width: 1704px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+/*CSS for the key or legend*/
+#legend {
+    background-color: black;
+    float: left;
+    height:2040px;
+    position: relative;
+    width: 1704px;
+}
+
+/*CSS for the canvas area*/
+canvas {
+    margin-left: 1704px;
+}
+
+.container {
+    z-index:2;
+    position:absolute;
+    height: 2240px;
+    width: 5112px;
+}
