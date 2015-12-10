@@ -70,7 +70,7 @@
 				var svg = d3.select('#legend').append('svg').attr('width', width)
 						.attr('height', height).append('g').attr(
 								'transform',
-								'translate(' + ((width/2)-355) + ',' + (height/2)
+								'translate(' + ((width/2)-380) + ',' + (height/2)
 										+ ')');
             d3.select('#legend').attr("align","center");
             
@@ -136,14 +136,24 @@
              .style('fill', color)
              .style('stroke', color);
              
-           // add number of devices out of total
-           legend.append('text')
+            // add number of devices out of total
+            legend.append('text')
              .attr('x', legendRectSize + legendSpacing + 80)
              .attr('y', legendRectSize - legendSpacing)
-             .text(function(d) { return d + ": "}) 
-             .style('font-size','40px')
+             .text(function(d) { 
+                  //console.log(d);
+                  return d + ": " + getValues(d)}) 
+             .style('font-size','45px')
              .style('fill','white');
             
+            function getValues(d){
+               var device = d.trim();
+               for(var i = 0; i < responses.length; i++) {
+                  if(responses[i].name == device){
+                        return(responses[i].checkedout + " of " + responses[i].total);
+                  }
+               }
+            }
            
              // apply "border"
             var phantomArcs = svg.selectAll("g.phantom-arc")
