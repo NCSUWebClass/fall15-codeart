@@ -38,9 +38,24 @@ time, mark, audio, video {
 #legend {
     background-color: black;
     float: left;
-    height:2040px;
+    height:1000px;
     position: relative;
     width: 1704px;
+}
+
+/*CSS for the project description */
+#description {
+    background-color: black;
+    float: left;
+    height:1040px;
+    position: relative;
+    width: 1704px;
+    font-size: 65px;
+    text-align: left;
+}
+
+p {
+   font-size: 45px;
 }
 
 /*CSS for the canvas area*/

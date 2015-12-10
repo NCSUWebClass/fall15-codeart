@@ -19,6 +19,19 @@
     </div>
     <div id="title"><h1>PROJECT LENT</h1>
       <div id="legend"></div>
+      <div id="description">
+         <h2>Turning library technology into art.</h2>
+         <p>
+            LENT is a pie and graphical visualization of a few devices available for checkout in Hunt Library. 
+            On the left is the pie chart, where the circumference represents the total amount of devices, 
+            and the amount each arc is filled up represents the amount of items checked out. 
+            On the right is a more visual representation, with each device being represented by 
+            its own shape shown in the legend. Each device will also emanate a sound based upon 
+            its position on the screen.
+         </p>
+         <br>
+         <p>GitHub:   go.ncsu.edu/codeartlent</p>
+      </div>
    </div>
 
   <script>
@@ -56,7 +69,7 @@
 				var svg = d3.select('#legend').append('svg').attr('width', width)
 						.attr('height', height).append('g').attr(
 								'transform',
-								'translate(' + ((width/2)-325) + ',' + (height/2)
+								'translate(' + ((width/2)-355) + ',' + (height/2)
 										+ ')');
             d3.select('#legend').attr("align","center");
             
@@ -122,11 +135,12 @@
              .style('fill', color)
              .style('stroke', color);
              
+           // add number of devices out of total
            legend.append('text')
              .attr('x', legendRectSize + legendSpacing + 80)
              .attr('y', legendRectSize - legendSpacing)
-             .text(function(d) { return d; }) 
-             .style('font-size','34px')
+             .text(function(d) { return d + ": "}) 
+             .style('font-size','40px')
              .style('fill','white');
             
            
@@ -163,7 +177,7 @@
             
             var imgs3 = svg.append("g")
                imgs3.append("svg:image")
-               .attr("xlink:href", "./img/Mac.png")
+               .attr("xlink:href", "./img/iPad.png")
                .attr("x", 570)
                .attr("y", -237.5)
                .attr("width", "75")
@@ -171,7 +185,7 @@
             
             var imgs4 = svg.append("g")
                imgs4.append("svg:image")
-               .attr("xlink:href", "./img/iPad.png")
+               .attr("xlink:href", "./img/TI.png")
                .attr("x", 570)
                .attr("y", -142.5)
                .attr("width", "75")
@@ -179,7 +193,7 @@
             
             var imgs5 = svg.append("g")
                imgs5.append("svg:image")
-               .attr("xlink:href", "./img/TI.png")
+               .attr("xlink:href", "./img/WinTablet.png")
                .attr("x", 570)
                .attr("y", -47.5)
                .attr("width", "75")
