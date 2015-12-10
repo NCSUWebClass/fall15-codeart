@@ -21,58 +21,55 @@
       <div id="legend"></div>
    </div>
 
-   <script>
-        var responses = [];
-        var paused = true;
-        //var deviceAvailable = [];
-        var deviceCheckedOut = [];
-        var deviceCount = 0;                                  
+  <script>
+		var responses = [];
+		var paused = true;
+		//var deviceAvailable = [];
+		var deviceCheckedOut = [];
+		var deviceCount = 0;                                  
 
-        var margin = {top: 40, right: 45, bottom: 30, left: 40};
+		getAll(responses);
 
-        getAll(responses);
+		setTimeout(function() {	  
+				var dataset = [];
+				var j = 0;
+				responses.forEach(function(device){
+					//getDeviceData(deviceid);
+					dataset.push({
+						label : device.name,
+						count : device.total
+					});
+					deviceCheckedOut.push(device.checkedout); // checked out
+					//console.log("ID: " + device.id + " total: " + device.total + " checked out: " + device.checkedout);
+				});
 
-        setTimeout(function() {   
-                //console.log("Here"); // debug
-                var dataset = [];
-                var j = 0;
-                responses.forEach(function(device){
-                    //getDeviceData(deviceid);
-                    dataset.push({
-                        label : device.name,
-                        count : device.total
-                    });
-                    deviceCheckedOut.push(device.checkedout); // checked out
-                    //console.log("ID: " + device.id + " total: " + device.total + " checked out: " + device.checkedout);
-                });
-
-                var width = 1704;
-                var height = 920;
-                var radius = (Math.min(width, height) / 2)-5;
+				var width = 1704;
+				var height = 900;
+				var radius = (Math.min(width, height) / 2)-5;
 
             // set colors to be assigned to the names
             // TODO automate domain/range
-                var color = d3.scale.ordinal()
+				var color = d3.scale.ordinal()
                .domain(["MacBook", "Windows Laptop", "iPad", "TI-83 Plus Calculator", "Windows Surface Tablet", "Bamboo Fun Tablet", "Raspberry Pi", "Arduino", "Chromebook"])
                .range(["#00C1B5", "#A2E0F4" , "#7F95CC", "#00CC00", "#F8A5B7", "#F9DE57", "#EA4B53", "#BF74B4", "#D5EB8B"]);
 
-                var svg = d3.select('#legend').append('svg').attr('width', width)
-                        .attr('height', height).append('g').attr(
-                                'transform',
-                                'translate(' + ((width/2)-150) + ',' + (height/2)
-                                        + ')');
+				var svg = d3.select('#legend').append('svg').attr('width', width)
+						.attr('height', height).append('g').attr(
+								'transform',
+								'translate(' + ((width/2)-325) + ',' + (height/2)
+										+ ')');
             d3.select('#legend').attr("align","center");
             
             var arcPhantom = d3.svg.arc()
                 .innerRadius(0)
                 .outerRadius(radius);
                             
-                var arc = d3.svg.arc().innerRadius(radius)
-                        .outerRadius(radius);
+				var arc = d3.svg.arc().innerRadius(radius)
+						.outerRadius(radius);
 
-                var pie = d3.layout.pie().value(function(d) {
-                    return d.count;
-                }).sort(null);
+				var pie = d3.layout.pie().value(function(d) {
+					return d.count;
+				}).sort(null);
 
             
             var path = svg.selectAll('path')
@@ -82,30 +79,30 @@
                .attr('d', arc)
                .attr('fill', function(d, i) { 
                  return color(d.data.label);
-                }); 
+				}); 
            
-                // select each arc, to set each inner radius to the total checked out
-                svg.selectAll(".arc").data(function(d) {
-                    return pie(dataset);
-                }).enter().append("path").attr("class", "arc").attr("d",
-                        function(d, i) {
-                            return arc.innerRadius((getRadius()))(d, i);
-                        }).style("fill", function(d) {
-                    return color(d.data.label);
-                });
+				// select each arc, to set each inner radius to the total checked out
+				svg.selectAll(".arc").data(function(d) {
+					return pie(dataset);
+				}).enter().append("path").attr("class", "arc").attr("d",
+						function(d, i) {
+							return arc.innerRadius((getRadius()))(d, i);
+						}).style("fill", function(d) {
+					return color(d.data.label);
+				});
 
-                function getRadius() {
-                    var checked = deviceCheckedOut[j];
+				function getRadius() {
+					var checked = deviceCheckedOut[j];
                var total = responses[j].total;
-                    console.log( responses[j].name + " Total: " + responses[j].total + " checked out: " + checked);
-                    j++;
+					//console.log( responses[j].name + " Total: " + responses[j].total + " checked out: " + checked);
+					j++;
                var percent = ((total-checked)/total);
-                    return percent*radius;
-                }
+					return percent*radius;
+				}
             
             
-            var legendRectSize = 64;                                  
-            var legendSpacing = 10;  
+            var legendRectSize = 75;                                  
+            var legendSpacing = 20;  
             var legend = svg.selectAll('.legend')
              .data(color.domain())
              .enter()
@@ -126,7 +123,7 @@
              .style('stroke', color);
              
            legend.append('text')
-             .attr('x', legendRectSize + legendSpacing)
+             .attr('x', legendRectSize + legendSpacing + 80)
              .attr('y', legendRectSize - legendSpacing)
              .text(function(d) { return d; }) 
              .style('font-size','34px')
@@ -147,8 +144,81 @@
                   return color(d.data.label)})
                 .style('stroke-width', 3);
             
-            },7000);
-    </script>
+            // apply the icons to the legend
+            var imgs1 = svg.append("g")
+               imgs1.append("svg:image")
+               .attr("xlink:href", "./img/Mac.png")
+               .attr("x", 570)
+               .attr("y", -427.5)
+               .attr("width", "75")
+               .attr("height", "75");
+               
+            var imgs2 = svg.append("g")
+               imgs2.append("svg:image")
+               .attr("xlink:href", "./img/WinLaptop.png")
+               .attr("x", 570)
+               .attr("y", -332.5)
+               .attr("width", "75")
+               .attr("height", "75");
+            
+            var imgs3 = svg.append("g")
+               imgs3.append("svg:image")
+               .attr("xlink:href", "./img/Mac.png")
+               .attr("x", 570)
+               .attr("y", -237.5)
+               .attr("width", "75")
+               .attr("height", "75");
+            
+            var imgs4 = svg.append("g")
+               imgs4.append("svg:image")
+               .attr("xlink:href", "./img/iPad.png")
+               .attr("x", 570)
+               .attr("y", -142.5)
+               .attr("width", "75")
+               .attr("height", "75");
+            
+            var imgs5 = svg.append("g")
+               imgs5.append("svg:image")
+               .attr("xlink:href", "./img/TI.png")
+               .attr("x", 570)
+               .attr("y", -47.5)
+               .attr("width", "75")
+               .attr("height", "75");
+            
+            var imgs6 = svg.append("g")
+               imgs6.append("svg:image")
+               .attr("xlink:href", "./img/Bamboo.png")
+               .attr("x", 570)
+               .attr("y", 47.5)
+               .attr("width", "75")
+               .attr("height", "75");
+               
+            var imgs7 = svg.append("g")
+               imgs7.append("svg:image")
+               .attr("xlink:href", "./img/RPi.png")
+               .attr("x", 570)
+               .attr("y", 142.5)
+               .attr("width", "75")
+               .attr("height", "75");
+            
+            var imgs8 = svg.append("g")
+               imgs8.append("svg:image")
+               .attr("xlink:href", "./img/Arduino.png")
+               .attr("x", 570)
+               .attr("y", 237.5)
+               .attr("width", "75")
+               .attr("height", "75");
+            
+            var imgs9 = svg.append("g")
+               imgs9.append("svg:image")
+               .attr("xlink:href", "./img/Chromebook.png")
+               .attr("x", 570)
+               .attr("y", 332.5)
+               .attr("width", "75")
+               .attr("height", "75");
+            
+			},7000);
+	</script>
 </div>
 </body>
 <script>
