@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Lent</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css">
+    <script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/p5.sound.min.js"></script>
+    <script src="js/getData.js"></script>
+    <!--<script type='text/javascript' src="p5.dom.js"></script>-->
+</head>
+<body>
+    <div id="container" class="container" style=" z-index:-14;">
+            <div id="output" class="container" style=" z-index:-14;">
+                <script src="js/index.js"></script>
+            </div>
+    </div>
+    <div id="title"><h1>PROJECT LENT</h1>
+      <div id="legend"></div>
+   </div>
+
+   <script>
+        var responses = [];
+        var paused = true;
+        //var deviceAvailable = [];
+        var deviceCheckedOut = [];
+        var deviceCount = 0;                                  
+
+        var margin = {top: 40, right: 45, bottom: 30, left: 40};
+
+        getAll(responses);
+
+        setTimeout(function() {   
+                //console.log("Here"); // debug
+                var dataset = [];
+                var j = 0;
+                responses.forEach(function(device){
+                    //getDeviceData(deviceid);
+                    dataset.push({
+                        label : device.name,
+                        count : device.total
+                    });
+                    deviceCheckedOut.push(device.checkedout); // checked out
+                    //console.log("ID: " + device.id + " total: " + device.total + " checked out: " + device.checkedout);
+                });
+
+                var width = 1704;
+                var height = 920;
+                var radius = (Math.min(width, height) / 2)-5;
+
+            // set colors to be assigned to the names
+            // TODO automate domain/range
+                var color = d3.scale.ordinal()
+               .domain(["MacBook", "Windows Laptop", "iPad", "TI-83 Plus Calculator", "Windows Surface Tablet", "Bamboo Fun Tablet", "Raspberry Pi", "Arduino", "Chromebook"])
+               .range(["#00C1B5", "#A2E0F4" , "#7F95CC", "#00CC00", "#F8A5B7", "#F9DE57", "#EA4B53", "#BF74B4", "#D5EB8B"]);
+
+                var svg = d3.select('#legend').append('svg').attr('width', width)
+                        .attr('height', height).append('g').attr(
+                                'transform',
+                                'translate(' + ((width/2)-150) + ',' + (height/2)
+                                        + ')');
+            d3.select('#legend').attr("align","center");
+            
+            var arcPhantom = d3.svg.arc()
+                .innerRadius(0)
+                .outerRadius(radius);
+                            
+                var arc = d3.svg.arc().innerRadius(radius)
+                        .outerRadius(radius);
+
+                var pie = d3.layout.pie().value(function(d) {
+                    return d.count;
+                }).sort(null);
+
+            
+            var path = svg.selectAll('path')
+               .data(pie(dataset))
+               .enter()
+               .append('path')
+               .attr('d', arc)
+               .attr('fill', function(d, i) { 
+                 return color(d.data.label);
+                }); 
+           
+                // select each arc, to set each inner radius to the total checked out
+                svg.selectAll(".arc").data(function(d) {
+                    return pie(dataset);
+                }).enter().append("path").attr("class", "arc").attr("d",
+                        function(d, i) {
+                            return arc.innerRadius((getRadius()))(d, i);
+                        }).style("fill", function(d) {
+                    return color(d.data.label);
+                });
+
+                function getRadius() {
+                    var checked = deviceCheckedOut[j];
+               var total = responses[j].total;
+                    console.log( responses[j].name + " Total: " + responses[j].total + " checked out: " + checked);
+                    j++;
+               var percent = ((total-checked)/total);
+                    return percent*radius;
+                }
+            
+            
+            var legendRectSize = 64;                                  
+            var legendSpacing = 10;  
+            var legend = svg.selectAll('.legend')
+             .data(color.domain())
+             .enter()
+             .append('g')
+             .attr('class', 'legend')
+             .attr('transform', function(d, i) { 
+               var height = legendRectSize + legendSpacing;
+               var offset =  height * color.domain().length / 2;
+               var horz = radius+legendSpacing*2;
+               var vert = i * height - offset;
+               return 'translate(' + horz + ',' + vert + ')';
+             });
+
+           legend.append('rect')
+             .attr('width', legendRectSize)
+             .attr('height', legendRectSize)
+             .style('fill', color)
+             .style('stroke', color);
+             
+           legend.append('text')
+             .attr('x', legendRectSize + legendSpacing)
+             .attr('y', legendRectSize - legendSpacing)
+             .text(function(d) { return d; }) 
+             .style('font-size','34px')
+             .style('fill','white');
+            
+           
+             // apply "border"
+            var phantomArcs = svg.selectAll("g.phantom-arc")
+                .data(pie(dataset))
+                .enter()
+                .append("g")
+                .attr("class", "phantom-arc");
+            
+            phantomArcs.append("path")
+                .attr("fill", 'white')
+                .attr("fill-opacity", 0.1)
+                .attr("d", arcPhantom).style('stroke', function(d) {
+                  return color(d.data.label)})
+                .style('stroke-width', 3);
+            
+            },7000);
+    </script>
+</div>
+</body>
+<script>
+    var responses = [];
+    var devices = [2081286,2729663,2260031,1983097];
+    devices.forEach(function(deviceid){
+      getDeviceData(deviceid);
+    });
+    console.log(responses); //FIXME eliminate when in production
+</script>
+<script src="js/ActiveDevices.js"></script>
+<script src="js/sketch.js"></script>
+</html>
+<!--
+<div style="background-color:yellow; width:300px; height:100px; position:relative; top:-60px; left:35px; z-index:1;">
+</div>
+<!--<script language="javascript" type="text/javascript" src="p5.js"></script>-->
+<!--<script type='text/javascript' src="p5.dom.js"></script>-->
