@@ -1,0 +1,86 @@
+<html>
+<head>
+<script src="js/getData.js"></script>
+<style>
+#retrieveCheck {
+    background-color: red;
+}
+
+</style>
+</head>
+<body>
+<h1>Testing retrevial of device data for LENT</h1>
+<table>
+<tr>
+    <td>
+        <input type="button" value="Get Availability Data!" onclick=retrieveData()></input>
+    </td>
+    <td>
+        <span id="retrieveCheck">Data not retrieved yet.</span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="button" value="MacBook" onclick=outputData(2081286)></input>
+    </td>
+    <td>
+        <input type="button" value="Windows Laptop" onclick=outputData(2729663)></input>
+    </td>
+    <td>
+        <input type="button" value="Chromebook" onclick=outputData(3310348)></input>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="button" value="iPad" onclick=outputData(2260031)></input>
+    </td>
+    <td>
+        <input type="button" value="Windows Surface Tablet" onclick=outputData(2736849)></input>
+    </td>
+    <td>
+        <input type="button" value="Bamboo Fun Tablet" onclick=outputData(2758462)></input>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="button" value="Arduino" onclick=outputData(2739182)></input>
+    </td>
+    <td>
+        <input type="button" value="Raspberry Pi" onclick=outputData(2736846)></input>
+    </td>
+    <td>
+        <input type="button" value="TI-83 Plus Calculator" onclick=outputData(1983097)></input>
+    </td>
+</tr>
+</table>
+
+<div id="output">
+
+
+</div>
+</body>
+<script>
+var responses = [];
+
+function retrieveData(){
+    getAll(responses);
+    var length = responses.length;
+    document.getElementById("retrieveCheck").innerHTML = "Data successfully retrieved";
+    document.getElementById("retrieveCheck").style.backgroundColor = "green";
+ 
+}
+
+function outputData(id){
+    var out = document.getElementById("output");
+    responses.forEach(function(device){
+        if(device.id == id){
+            var x = document.createElement("p");
+            var y = document.createTextNode("This device, "+device.name+", has "+device.checkedout+" checked out, "+device.techlend+" available to be lent out, and "+device.total+" total.");
+            x.appendChild(y);
+            out.appendChild(x);
+            console.log(device.id);
+        }    
+    });   
+}
+</script>
+</html>
