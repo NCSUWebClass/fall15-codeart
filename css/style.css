@@ -58,6 +58,12 @@ p {
    font-size: 45px;
 }
 
+/*Paragraph in description div*/
+#description p, #description h2 {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
 /*CSS for the canvas area*/
 canvas {
     margin-left: 1704px;

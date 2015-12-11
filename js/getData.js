@@ -1,3 +1,5 @@
+var allIDs = new Array();
+
 /*
  Parses the "HUNT" sections out of the GET response
  @param {String} - GET response from the library server
@@ -41,137 +43,11 @@ function parseResponse(response, id){
     }
     response = response.replace("[HUNT]",'');
     start = response.indexOf("[HUNT]");
+    //console.log(huntSection);
     allHunts.push(huntSection);
   }
 
   return getDeviceAvailability(allHunts,id); 
-}
-
-/* Assigns the name of the item to the id*/
-function assignName(id){
-    var val = id.trim();
-    switch(val){
-        case "2081286":
-            return "MacBook";
-        case "2729663":
-            return "Windows Laptop";
-        case "2260031":
-            return "iPad";
-        case "1983097":
-            return "TI-83 Plus Calculator";
-        case "2736849":
-            return "Windows Surface Tablet";
-        case "2758462":
-            return "Bamboo Fun Tablet";
-        case "2739182":
-            return "Raspberry Pi";
-        case "2739182":
-            return "Arduino";
-        case "3310348":
-            return "Chromebook";
-        default:
-            return "Name N/A";
-    }
-}
-
-/*
- Parses out amount of device in each availability status
- @param {Array} sections - parsed out "HUNT" sections of GET response
- @param {id} id - id of specific lendable device 
-*/
-function getDeviceAvailability(sections, id){
-    var regex = /\[\w+\] => \d+/gi;
-    var availability = {id: id, techlend:0, techhold:0, repair:0, intransit:0, checkedout:0, total:0};
-    availability.name = assignName(id);
-    sections.forEach(function(deviceAvail){
-	//console.log(deviceAvail);
-        var regexOutput = regex.exec(deviceAvail);
-        while(regexOutput !== null){
-            var availArray = regexOutput.toString().split(" ");
-	    
-            //availArray[0] is the availability status
-            //availArray[1] is the symbol =>
-            //availArray[2] is the number of devices in that state
-            switch(availArray[0]){
-                case "[TECHLEND]":
-                    availability.techlend += parseInt(availArray[2]);
-                    //availability.total += availability.techlend;
-                    break;
-                case "[TECHHOLD]":
-                    availability.techhold += parseInt(availArray[2]);
-                    //availability.total += availability.techhold;
-                    break;
-                case "[REPAIR]":
-                    availability.repair += parseInt(availArray[2]);
-                    //availability.total += availability.repair;
-                    break;
-                case "[INTRANSIT]":
-                    availability.intransit += parseInt(availArray[2]);
-                    //availability.total += availability.intransit;
-                    break;
-                case "[CHECKEDOUT]":
-                    availability.checkedout += parseInt(availArray[2]);
-                    //availability.total += availability.checkedout;
-                    break;
-                default:
-                    break;
-                }
-            regexOutput = regex.exec(deviceAvail); //onto next regex match
-        }
-        availability.total = availability.techlend + availability.checkedout;
-    });
-    responses.push(availability);
-    return availability; //debugging state
-}
-
-/*
- Function that sends the GET request to the library server
- @param {String} id - id of specific lendable device
-*/
-function getDeviceData(id){
-  var request = new XMLHttpRequest();
-  request.onreadystatechange = function() {
-    if(request.readyState == 4 && request.status == 200) {
-      var deviceResponse = parseResponse(request.responseText, id);
-      //document.write("Item "+id+" has "+deviceResponse.techlend+" available to be lent out and "+deviceResponse.checkedout+" checked out already<br>"); //FIXME uncomment when in production, call upon response array to get data
-    }
-  }
-  request.open("GET", "http://www.lib.ncsu.edu/websiteclassic/device-test/index.php?key=" + id,true);
-  request.send();
-}
-
-/*
- Function to parse numbers from a text file, separated by the  newline character '/n'
- @param {String} filename - the name of the file containing the numbers
- @param {Function} callback - the function to call when done processing the file   
-*/
-function parseFile(filename, callback) {
-  //create empty array
-  var contents = [];
-
-  //open file reader
-  var req = new XMLHttpRequest();
-  req.open('GET',filename,true);
-  
-  //when file is opened
-  req.onreadystatechange = function() {
-    if(req.readyState == 4 && req.status ==200) {
-      var text = req.responseText;
-      var lines = text.split('\n');
-      //go through each line
-      for(var line = 0; line < lines.length; line++){
-      //check if it is a number
-        length = lines.length;
-        if (isFinite(parseInt(lines[line]))) {
-          //put it in the array if it is
-          contents.push(lines[line]);
-        }
-      }
-    //return the array
-    callback(contents);
-    }
-  }  
-  req.send();
 }
 
 /* Assigns the name of the item to the id */
@@ -213,14 +89,131 @@ function assignName(id){
     return name;
 }
 
-/*fills reponses array with availability objects*/
-function getAll(responses){
+
+/*
+ Parses out amount of device in each availability status
+ @param {Array} sections - parsed out "HUNT" sections of GET response
+ @param {id} id - id of specific lendable device 
+*/
+function getDeviceAvailability(sections, id){
+    var regex = /\[\w+\] => \d+/gi;
+    var availability = {id: id, techlend:0, techhold:0, repair:0, intransit:0, checkedout:0, total:0, name:""};
+    //console.log(id);
+    availability.name = assignName(id);
+    sections.forEach(function(deviceAvail){
+	//console.log(deviceAvail);
+        var regexOutput = regex.exec(deviceAvail);
+        while(regexOutput !== null){
+            var availArray = regexOutput.toString().split(" ");
+            //availArray[0] is the availability status
+            //availArray[1] is the symbol =>
+            //availArray[2] is the number of devices in that state
+            switch(availArray[0]){
+                case "[TECHLEND]":
+                    availability.techlend += parseInt(availArray[2]);
+                    //availability.total += availability.techlend;
+                    break;
+                case "[TECHHOLD]":
+                    availability.techhold += parseInt(availArray[2]);
+                    //availability.total += availability.techhold;
+                    break;
+                case "[REPAIR]":
+                    availability.repair += parseInt(availArray[2]);
+                   // availability.total += availability.repair;
+                    break;
+                case "[INTRANSIT]":
+                    availability.intransit += parseInt(availArray[2]);
+                    //availability.total += availability.intransit;
+                    break;
+                case "[CHECKEDOUT]":
+                    availability.checkedout += parseInt(availArray[2]);
+                    //availability.total += availability.checkedout;
+                    break;
+               // default:
+                 //   break;
+                }
+            regexOutput = regex.exec(deviceAvail); //onto next regex match
+        }
+        availability.total = availability.techlend+availability.checkedout;
+    });
+    responses.push(availability);
+    //return availability; //debugging state
+}
+
+/*
+ Function that sends the GET request to the library server
+ @param {String} id - id of specific lendable device
+*/
+function getDeviceData(id){
+  var request = new XMLHttpRequest();
+  request.onreadystatechange = function() {
+    if(request.readyState == 4 && request.status == 200) {
+      var deviceResponse = parseResponse(request.responseText, id);
+      //console.log(request.responseText);
+     // document.write("Item "+id+" has "+deviceResponse.techlend+" available to be lent out and "+deviceResponse.checkedout+" checked out already<br>"); //FIXME uncomment when in production, call upon response array to get data
+    }
+  }
+  request.open("GET", "http://www.lib.ncsu.edu/websiteclassic/device-test/index.php?key=" + id,true);
+  request.send();
+}
+
+/*
+ Function to parse numbers from a text file, separated by the  newline character '/n'
+ @param {String} filename - the name of the file containing the numbers
+ @param {Function} callback - the function to call when done processing the file   
+*/
+function parseFile(filename, callback) {
+  //create empty array
+  var contents = [];
+
+  //open file reader
+  var req = new XMLHttpRequest();
+  req.open('GET',filename,true);
+  
+  //when file is opened
+  req.onreadystatechange = function() {
+    if(req.readyState == 4 && req.status ==200) {
+      var text = req.responseText;
+      var lines = text.split('\n');
+      //go through each line
+      for(var line = 0; line < lines.length; line++){
+      //check if it is a number
+        length = lines.length;
+        if (isFinite(parseInt(lines[line]))) {
+          //put it in the array if it is
+          contents.push(lines[line]);
+        }
+      }
+    //return the array
+    callback(contents);
+    }
+  }  
+  req.send();
+}
+
+function getAll(responses) {
     var file = "deviceids.txt";
     parseFile(file, function(id) {
         id.forEach(function(deviceid) {
+            allIDs.push(deviceid);
             getDeviceData(deviceid);
         });
     });
-    //setTimeout(function(){ console.log(responses); }, 1000); //debugging step
+    //setTimeout(function() {
+    //  console.log(responses);
+    //}, 5000);//debugging step
     return responses;
+}
+
+//returns number of devices checked out, given index
+//into allIDs[]
+function getNumCheckedOut(index){
+  var numCheckedOut;
+  var id = allIDs[index];
+    responses.forEach(function(device){
+        if(device.id == id){
+            numCheckedOut = device.checkedout;
+        }
+    })
+    return numCheckedOut;
 }
