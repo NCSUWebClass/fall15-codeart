@@ -23,9 +23,12 @@
          <h2>Turning library technology into art.</h2>
          <p>
             LENT is a pie and graphical visualization of a few devices available for checkout in Hunt Library. 
-            On the left is the pie chart, where the circumference represents the total amount of devices, 
-            and the amount each arc is filled up represents the amount of items checked out. 
-            On the right is a more visual representation, with each device being represented by 
+            <br>On the left is the pie chart, where the circumference represents the total amount of devices.
+			Each "slice" of the chart represents a device available to be lent out.  If the "slice" is empty,
+			it means that all devices of that type are currently being checked out by a user of the library.
+			The legend next to the chart illustrates each device's visualizer counterpart, as well as the number
+			of devices available to be checked out.
+            <br>On the right is a more visual representation, with each device being represented by 
             its own shape shown in the legend. Each device will also emanate a sound based upon 
             its position on the screen.
          </p>
@@ -103,11 +106,20 @@
 
         function getRadius() {
           var checked = deviceCheckedOut[j];
-               var total = responses[j].total;
-          //console.log( responses[j].name + " Total: " + responses[j].total + " checked out: " + checked);
-          j++;
-               var percent = ((total-checked)/total);
-          return percent*radius;
+          var total = responses[j].total;
+		  var percent = 0;
+		  //var name = responses[j].name;
+		  j++;
+		  if( checked === 0 ) {
+			percent =  0;
+		  } else {
+            //console.log( name + " Total: " + total + " checked out: " + checked);
+			// the "slice" should fill in what is avaialable, and take out the checked out chunk
+            var p = (checked/total);
+            percent =  p*radius;
+		  }
+			//console.log(name + " Percent: " + percent);
+			return percent;
         }
             
             
@@ -146,7 +158,7 @@
                var device = d.trim();
                for(var i = 0; i < responses.length; i++) {
                   if(responses[i].name == device){
-                        return(responses[i].checkedout + " of " + responses[i].total);
+                        return((responses[i].total - responses[i].checkedout) + " of " + responses[i].total);
                   }
                }
             }
