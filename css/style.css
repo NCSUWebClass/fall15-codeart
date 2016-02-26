@@ -75,3 +75,20 @@ canvas {
     height: 2240px;
     width: 5112px;
 }
+
+/*Code+Art Logo styling*/
+#logo-img {
+    height: 140px;;
+    width: 470px;
+    float: left;
+    position: absolute;
+    bottom: 0;
+    left: 400px;
+}
+
+#logo-descript {
+    float: left;
+    margin-left: 100px;
+    margin-right: 100px;
+    font-size: 45px;
+}
