@@ -7,13 +7,15 @@
     <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css">
     <script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
+    <script src="js/three.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="css/animate.css">
     <script language="javascript" type="text/javascript" src="js/p5.sound.min.js"></script>
     <script src="js/getData.js"></script>
     <!--<script type='text/javascript' src="p5.dom.js"></script>-->
 </head>
-<body>
+<body onload=getAll(responses)>
     <div id="container" class="container" style=" z-index:-14;">
-            <div id="output" class="container" style=" z-index:-14;">
+            <div id="output" class="container" style=" z-index:-500;">
                 <script src="js/index.js"></script>
             </div>
     </div>
@@ -68,7 +70,7 @@
             // TODO automate domain/range
         var color = d3.scale.ordinal()
                .domain(["MacBook", "Windows Laptop", "iPad", "TI-83 Plus Calculator", "Windows Surface Tablet", "Bamboo Fun Tablet", "Raspberry Pi", "Arduino", "Chromebook"])
-               .range(["#00C1B5", "#A2E0F4" , "#7F95CC", "#00CC00", "#F8A5B7", "#F9DE57", "#EA4B53", "#BF74B4", "#D5EB8B"]);
+               .range(["#00C1B5", "#A2E0F4" , "#7F95CC", "#00CC00", "#F8A5B7", "#F9DE57", "#EA4B53", "#BF74B4", "#F16E1E"]);
 
         var svg = d3.select('#legend').append('svg').attr('width', width)
             .attr('height', height).append('g').attr(
@@ -258,18 +260,21 @@
     </script>
 </div>
 </body>
+    <script>
+
+    </script>
     <script src="js/Shape.js"></script>
     <script src="js/MacBook.js"></script>
-    <script src="js/WindowsLaptop.js"></script>
+    <script src="js/WindowsLap.js"></script>
     <script src="js/iPad.js"></script>
     <script src="js/Calculator.js"></script>
     <script src="js/BambooTab.js"></script>
     <script src="js/Ardunio.js"></script>
     <script src="js/ChromeBook.js"></script>
-    <script src="js/WindowsTab.js"></script>
+<!--    <script src="js/WindowsTab.js"></script>-->
     <script src="js/Raspberry.js"></script>
-    <script src="js/ActiveDevices.js"></script>
-    <script src="js/sketch.js"></script>
+<!--    <script src="js/ActiveDevices.js"></script>
+    <script src="js/sketch.js"></script>-->
 </html>
 <!--
 <div style="background-color:yellow; width:300px; height:100px; position:relative; top:-60px; left:35px; z-index:1;">

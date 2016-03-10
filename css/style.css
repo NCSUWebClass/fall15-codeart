@@ -94,3 +94,35 @@ canvas {
     bottom: 0;
     left: 1140px; /* 100 + 940 + 100 */
 }
+
+@font-face {
+    font-family: "mininal";
+    src: url('../fonts/Dense-Regular.otf') format('opentype');
+}
+
+/*h1{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    color:#CCFFCC;
+    font: 88px "mininal";
+    text-transform: uppercase;
+    background-color: transparent;
+}*/
+
+ul {
+    list-style-type: none;
+    display: inline-flex;
+}
+
+ul li{
+
+    padding-left: 1.5em;
+    display: inline-block;
+}
+
+@-webkit-keyframes fadeInRightBig {
+
+
+}
+
