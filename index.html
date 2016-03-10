@@ -7,13 +7,29 @@
     <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/style.css">
     <script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
+    <script src="js/three.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="css/animate.css">
     <script language="javascript" type="text/javascript" src="js/p5.sound.min.js"></script>
     <script src="js/getData.js"></script>
     <!--<script type='text/javascript' src="p5.dom.js"></script>-->
+    <style>
+    #modelCanvas {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
 </head>
-<body>
+<body onload=getAll(responses)>
     <div id="container" class="container" style=" z-index:-14;">
-            <div id="output" class="container" style=" z-index:-14;">
+            <div id="output" class="container" style=" z-index:-500;">
+            <h1 id="fadingTitle">
+    <ul>
+        <li class="animated fadeOutLeftBig">l</li>
+        <li class="animated fadeOutLeft">e</li>
+        <li class="animated fadeOutRight">n</li>
+        <li class="animated fadeOutRightBig">t</li>
+    </ul>
+</h1>
                 <script src="js/index.js"></script>
             </div>
     </div>
@@ -35,7 +51,7 @@
          <br>
             <img id="logo-img" src="CodeArtLogo.png">
             <span id="logo-descript">This project is a submission to the Code+Art Student Visualization Contest.<br>
-            GitHub: go.ncsu.edu/codeartlent</p>
+            GitHub: go.ncsu.edu/codeartlent
             </span>
             
         </div>
@@ -68,7 +84,7 @@
             // TODO automate domain/range
         var color = d3.scale.ordinal()
                .domain(["MacBook", "Windows Laptop", "iPad", "TI-83 Plus Calculator", "Windows Surface Tablet", "Bamboo Fun Tablet", "Raspberry Pi", "Arduino", "Chromebook"])
-               .range(["#00C1B5", "#A2E0F4" , "#7F95CC", "#00CC00", "#F8A5B7", "#F9DE57", "#EA4B53", "#BF74B4", "#D5EB8B"]);
+               .range(["#00C1B5", "#A2E0F4" , "#7F95CC", "#00CC00", "#F8A5B7", "#F9DE57", "#EA4B53", "#BF74B4", "#F16E1E"]);
 
         var svg = d3.select('#legend').append('svg').attr('width', width)
             .attr('height', height).append('g').attr(
@@ -254,13 +270,15 @@
                .attr("width", "75")
                .attr("height", "75");
             
-      },2550);
+      },3000);
+    setTimeout(function() {location.reload(); },180000);
     </script>
 </div>
 </body>
+    <script src="collada/ColladaLoader.js"></script>
     <script src="js/Shape.js"></script>
     <script src="js/MacBook.js"></script>
-    <script src="js/WindowsLaptop.js"></script>
+    <script src="js/WindowsLap.js"></script>
     <script src="js/iPad.js"></script>
     <script src="js/Calculator.js"></script>
     <script src="js/BambooTab.js"></script>
@@ -269,10 +287,12 @@
     <script src="js/WindowsTab.js"></script>
     <script src="js/Raspberry.js"></script>
     <script src="js/ActiveDevices.js"></script>
-    <script src="js/sketch.js"></script>
+    <script src="js/lent.js"></script>
+    <!--<script src="js/sketch.js"></script>-->
 </html>
 <!--
 <div style="background-color:yellow; width:300px; height:100px; position:relative; top:-60px; left:35px; z-index:1;">
 </div>
+
 <!--<script language="javascript" type="text/javascript" src="p5.js"></script>-->
 <!--<script type='text/javascript' src="p5.dom.js"></script>-->

@@ -21,6 +21,10 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 
+body {
+    overflow: hidden;
+}
+
 /*CSS for the key's title*/
 #title{
     background-color: black;
@@ -83,7 +87,7 @@ canvas {
     float: left;
     position: absolute;
     bottom: 0;
-    left: 400px;
+    left: 100px;
 }
 
 #logo-descript {
@@ -91,4 +95,39 @@ canvas {
     margin-left: 100px;
     margin-right: 100px;
     font-size: 45px;
+    bottom: 0;
+    left: 1140px; /* 100 + 940 + 100 */
 }
+
+@font-face {
+    font-family: "mininal";
+    src: url('../fonts/Dense-Regular.otf') format('opentype');
+}
+
+#fadingTitle{
+    width: 100%;
+    position: absolute;
+    padding-left: 1600px;
+    text-align: center;
+    color:#CCFFCC;
+    font: 160px "mininal";
+    text-transform: uppercase;
+    background-color: transparent;
+}
+
+ul {
+    list-style-type: none;
+    display: inline-flex;
+}
+
+ul li{
+
+    padding-left: 1.5em;
+    display: inline-block;
+}
+
+@-webkit-keyframes fadeInRightBig {
+
+
+}
+

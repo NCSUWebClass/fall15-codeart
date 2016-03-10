@@ -1,42 +1,36 @@
-function iPad(sound) {
+function WindowsLap(sound) {
     //Call the Shape parent constructor
     Shape.call(sound);
     this.obj = new Array();
     this.dur = new Array();
     this.dir = new Array();
     this.speed = new Array();
+
 };
 
-iPad.prototype = Object.create(Shape.prototype);
+WindowsLap.prototype = Object.create(Shape.prototype);
 
-iPad.prototype.constructor = iPad;
+WindowsLap.prototype.constructor = WindowsLap;
 
 //add to scene
-iPad.prototype.add = function() {
+WindowsLap.prototype.add = function() {
 
-    var size = 0.25;
-    var tub = 0.05;
-    var geometry = new THREE.TorusGeometry(size, tub,32,32)
-    var material = new THREE.MeshPhongMaterial( {color: 0x7F95CC,shading: THREE.SmoothShading});
-    var mesh1 = new THREE.Mesh( geometry,material);
-    var pad = new THREE.Object3D();
-    pad.add(mesh1);
-    var mesh2 = new THREE.Mesh(new THREE.SphereGeometry(0.15,32,32),material);
-    pad.add(mesh2);
-
+    var material = new THREE.MeshPhongMaterial( {color: 0xA2E0F4,shading: THREE.FlatShading});
+    //var material = new THREE.MeshPhongMaterial( {color: 0xEE4858});
+    var lap = new THREE.Mesh( new THREE.CubeGeometry(0.6,0.6,0.6),material);
+    //cube = new THREE.Mesh(new THREE.CubeGeometry(2, 2, 2), new THREE.MeshPhongMaterial({color: 0xEE4858, shading: THREE.FlatShading}));
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
     this.speed.push(Math.random() * (1.25-.01) + .01);
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 
-    this.obj.push(pad);
+    this.obj.push(lap);
 
-    scene.add(pad);
-
+    scene.add(lap);
 }
-iPad.prototype.move = function() {
 
+WindowsLap.prototype.move = function() {
     for(var i = 0; i < this.obj.length; i++) {
         switch(this.dir[i]) {
             case 1:
