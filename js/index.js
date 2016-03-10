@@ -28,6 +28,15 @@
 // OR OTHER DEALINGS IN THE SOFTWARE.
 //
 //============================================================
+var colors = {
+    ambient: '#00d1ff', //normal: #00d1ff sunset: #880066 dark: #8F16E3
+    diffuse: '#00d1ff',   //normal: #00d1ff sunset: #FF8800 dark: #0CDCB6
+    meshamb: '#555555',
+    meshdif: '#FFFFFF'
+}
+
+//times: light: 5-7 sunset, 7-6, 6-8 sunset, 8-5 dark
+
 
 /**
  * Defines the Flat Surface Shader namespace for all the awesomeness to exist upon.
@@ -1248,8 +1257,8 @@ FSS.SVGRenderer.prototype.formatStyle = function(color) {
         xRange: 0.8,
         yRange: 0.1,
         zRange: 1.0,
-        ambient: '#0077FF',
-        diffuse: '00FFF0',
+        ambient: colors.meshamb,
+        diffuse: colors.meshdif,
         speed: 0.001
     };
 
@@ -1260,8 +1269,8 @@ FSS.SVGRenderer.prototype.formatStyle = function(color) {
         count: 2,
         xyScalar: 1,
         zOffset: 100,
-        ambient: '#6AA086',
-        diffuse: '#FF8800',
+        ambient: colors.ambient,
+        diffuse: colors.diffuse,
         speed: 0.0002,
         gravity: 500,
         dampening: 0.95,

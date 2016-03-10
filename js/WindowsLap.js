@@ -1,4 +1,4 @@
-function Ardunio(sound) {
+function WindowsLap(sound) {
     //Call the Shape parent constructor
     Shape.call(sound);
     this.obj = new Array();
@@ -8,37 +8,29 @@ function Ardunio(sound) {
 
 };
 
-Ardunio.prototype = Object.create(Shape.prototype);
+WindowsLap.prototype = Object.create(Shape.prototype);
 
-Ardunio.prototype.constructor = Ardunio;
+WindowsLap.prototype.constructor = WindowsLap;
 
 //add to scene
-Ardunio.prototype.add = function() {
+WindowsLap.prototype.add = function() {
 
-    var size = 0.15;
-    var tub = 0.07;
-    var geometry = new THREE.TorusGeometry(size, tub,32,32);
-    var material = new THREE.MeshPhongMaterial( {color: 0xBF74B4,shading: THREE.SmoothShading});
-    var mesh1 = new THREE.Mesh( geometry,material);
-    var ard = new THREE.Object3D();
-    ard.add(mesh1);
-    var mesh2 = new THREE.Mesh( geometry,material);
-    mesh2.position.x = 0.15*2;
-    ard.add(mesh2);
-
+    var material = new THREE.MeshPhongMaterial( {color: 0xA2E0F4,shading: THREE.FlatShading});
+    //var material = new THREE.MeshPhongMaterial( {color: 0xEE4858});
+    var lap = new THREE.Mesh( new THREE.CubeGeometry(0.6,0.6,0.6),material);
+    //cube = new THREE.Mesh(new THREE.CubeGeometry(2, 2, 2), new THREE.MeshPhongMaterial({color: 0xEE4858, shading: THREE.FlatShading}));
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
 
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 
-    this.obj.push(ard);
+    this.obj.push(lap);
 
-    scene.add(ard);
-
+    scene.add(lap);
 }
-Ardunio.prototype.move = function() {
-    //one of these 6 ways
+
+WindowsLap.prototype.move = function() {
     for(var i = 0; i < this.obj.length; i++) {
         switch(this.dir[i]) {
             case 1:
@@ -71,5 +63,6 @@ Ardunio.prototype.move = function() {
                 break;
         }
     }
+
 }
 
