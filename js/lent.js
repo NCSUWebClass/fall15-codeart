@@ -40,7 +40,9 @@ function initEscher() {
         dae.rotateY(-0.785398); //in rads
         dae.translateY(1);
         dae.rotation.x = 25;
-        dae.scale.x = dae.scale.y = dae.scale.z = 0.2;
+        dae.scale.x = 0.25;
+        dae.scale.y = 0.2;
+        dae.scale.z = 0.25;
         scene.add(dae);
     });
 }
@@ -65,7 +67,7 @@ function initCamera() {
 
 function initRenderer() {
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true  });
-    renderer.setSize(WIDTH, HEIGHT);
+    renderer.setSize(5112, 2240);
 }
 
 function orbit(){

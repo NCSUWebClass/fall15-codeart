@@ -7,20 +7,13 @@ function ActiveDevices(){
 
 ActiveDevices.prototype.render = function(){
 	for (var i = 0; i < this.active.length; i++) {
-		var numCheckedOut = getNumCheckedOut(i);
+        var numCheckedOut = getNumCheckedOut(i);
 		var difference = numCheckedOut - this.active[i].length;
 
 		if(difference > 0){
 			this.addDevices(i, difference);		//missing devices to active[i]
 		}else if(difference < 0){
 			this.removeDevices(i, difference);  //remove extra devices from active[i]
-		}
-
-		for(var j = 0; j < this.active[i].length; j++){
-			var selectedDevice = this.active[i][j];
-			selectedDevice.move();
-			if(selectedDevice.soundActive || selectedDevice.active)
-				selectedDevice.render();
 		}
 	}
 }
@@ -81,15 +74,7 @@ ActiveDevices.prototype.addDevices = function(index, difference){
 			this.active[index].push(device);
 		}else if(index == 5){
 			//Bamboo
-			var xPos = random(400, 375);
-			var yPos = random(-300, 300);
-			var side = random(-1, 1);
-			if(side >= 0){
-				side = 1;
-			}else{
-				side = -1;
-			}
-			var device = new BambooTab(xPos * side, yPos, -100, "sound/Bamboo.mp3");
+			var device = new BambooTab("sound/Bamboo.mp3");
 			this.active[index].push(device);
 		}else if(index == 6){
 			//rpi

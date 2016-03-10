@@ -705,7 +705,7 @@ FSS.CanvasRenderer = function() {
     FSS.Renderer.call(this);
     this.element = document.createElement('canvas');
     this.element.style.display = 'block';
-    this.element.setAttribute("id", "myCanvas");
+    this.element.setAttribute("id", "modelCanvas");
     this.context = this.element.getContext('2d');
     //this.element.style.filter = "blur(10px)";
     this.setSize(this.element.width, this.element.height);

@@ -21,6 +21,10 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 
+body {
+    overflow: hidden;
+}
+
 /*CSS for the key's title*/
 #title{
     background-color: black;
