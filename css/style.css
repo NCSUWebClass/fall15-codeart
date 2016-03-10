@@ -104,15 +104,16 @@ canvas {
     src: url('../fonts/Dense-Regular.otf') format('opentype');
 }
 
-/*h1{
+#fadingTitle{
     width: 100%;
     position: absolute;
+    padding-left: 1600px;
     text-align: center;
     color:#CCFFCC;
-    font: 88px "mininal";
+    font: 160px "mininal";
     text-transform: uppercase;
     background-color: transparent;
-}*/
+}
 
 ul {
     list-style-type: none;
