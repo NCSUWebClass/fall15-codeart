@@ -18,15 +18,72 @@ function init() {
     clock = new THREE.Clock();
     date = new Date(); //needed to do time stuff
     //add objects to scene methods
-    book.add();
-    ipa.add();
-    ti83.add();
-    boo.add();
-    ard.add();
-    chrm.add();
-    winTab.add();
-    lap.add();
-    berry.add();
+    for(var i = 0; i < 9; i++){
+       switch(i){
+           case 0:
+                var deviceNum = getNumCheckedOut(i);
+                for(var j = 0; j < deviceNum; j++) {
+                    book.add();
+                }
+                break;
+        
+           case 1:
+                var deviceNum = getNumCheckedOut(i);
+                for(var j = 0; j < deviceNum; j++) {
+                    lap.add();
+                }
+                break;
+        
+           case 2:
+                var deviceNum = getNumCheckedOut(i);
+                for(var j = 0; j < deviceNum; j++) {
+                    ipa.add();
+                }
+                break;
+        
+           case 3:
+                var deviceNum = getNumCheckedOut(i);
+                for(var j = 0; j < deviceNum; j++) {
+                    ti83.add();
+                }
+                break;
+        
+           case 4:
+                var deviceNum = getNumCheckedOut(i);
+                for(var j = 0; j < deviceNum; j++) {
+                    winTab.add();
+                }
+                break;
+        
+           case 5:
+                var deviceNum = getNumCheckedOut(i);
+                for(var j = 0; j < deviceNum; j++) {
+                    boo.add();
+                }
+                break;
+        
+           case 6:
+                var deviceNum = getNumCheckedOut(i);
+                for(var j = 0; j < deviceNum; j++) {
+                    berry.add();
+                }
+                break;
+        
+           case 7:
+                var deviceNum = getNumCheckedOut(i);
+                for(var j = 0; j < deviceNum; j++) {
+                    ard.add();
+                }
+                break;
+        
+           case 8:
+                var deviceNum = getNumCheckedOut(i);
+                for(var j = 0; j < deviceNum; j++) {
+                    chrm.add();
+                }
+                break;
+        }        
+    }
     initEscher();
     initCamera();
     initRenderer();
@@ -70,18 +127,6 @@ function initRenderer() {
     renderer.setSize(5112, 2240);
 }
 
-function orbit(){
-    if(camera.position.x < -3.5) {
-        camera.position.x = Math.cos(clock.getElapsedTime() / 4) * 4;
-        camera.position.z = -Math.sin(clock.getElapsedTime() / 4) * 4;
-        camera.lookAt(scene.position);
-    } else if (camera.position.x > 3,5) {
-        camera.position.x = -Math.cos(clock.getElapsedTime() / 4) * 4;
-        camera.position.z = Math.sin(clock.getElapsedTime() / 4) * 4;
-        camera.lookAt(scene.position);
-    }
-    console.log(camera.position.x);
-}
 
 function render() {
 
@@ -109,5 +154,7 @@ function render() {
 
 }
 
+while(allIDs.length != 9) {
+}
 init();
 render();
