@@ -154,7 +154,5 @@ function render() {
 
 }
 
-while(allIDs.length != 9) {
-}
 init();
 render();
