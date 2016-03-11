@@ -18,7 +18,6 @@ function init() {
     clock = new THREE.Clock();
     date = new Date(); //needed to do time stuff
     //add objects to scene methods
-
     for(var i = 0; i < 9; i++){
        switch(i){
            case 0:
@@ -128,18 +127,6 @@ function initRenderer() {
     renderer.setSize(5112, 2240);
 }
 
-function orbit(){
-    if(camera.position.x < -3.5) {
-        camera.position.x = Math.cos(clock.getElapsedTime() / 4) * 4;
-        camera.position.z = -Math.sin(clock.getElapsedTime() / 4) * 4;
-        camera.lookAt(scene.position);
-    } else if (camera.position.x > 3,5) {
-        camera.position.x = -Math.cos(clock.getElapsedTime() / 4) * 4;
-        camera.position.z = Math.sin(clock.getElapsedTime() / 4) * 4;
-        camera.lookAt(scene.position);
-    }
-    console.log(camera.position.x);
-}
 
 function render() {
 
