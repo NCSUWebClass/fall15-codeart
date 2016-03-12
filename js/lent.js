@@ -14,10 +14,17 @@ lightIntense = 1.25; //normal = 1.25 sunset = 0.75 dark = 0.5
 
 function init() {
     scene = new THREE.Scene();
-    
+
     //add objects to scene methods
     winTab.add();
-    winTab.add();
+    book.add();
+    boo.add();
+    lap.add();
+    ti83.add();
+    ard.add();
+    ipa.add();
+    chrm.add();
+    berry.add();
     for(var i = 0; i < 9; i++){
        switch(i){
            case 0:
@@ -152,5 +159,6 @@ function render() {
     renderer.render(scene, camera);
 
 }
+
 init();
 render();
