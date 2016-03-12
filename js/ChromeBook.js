@@ -15,11 +15,11 @@ ChromeBook.prototype.constructor = ChromeBook;
 ChromeBook.prototype.add = function() {
 
     var material = new THREE.MeshPhongMaterial( {color: 0xF16E1E,shading: THREE.FlatShading});
-    var chrm = new THREE.Mesh( new THREE.IcosahedronGeometry(0.3),material);
+    var chrm = new THREE.Mesh( new THREE.IcosahedronGeometry(0.1),material);
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
-    this.speed.push(Math.random() * (1.25-.01) + .01);
+    this.speed.push(Math.random() * (1 - 0.1) + 0.1);
 
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 

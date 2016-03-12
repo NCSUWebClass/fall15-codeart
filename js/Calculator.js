@@ -15,12 +15,12 @@ Calculator.prototype.constructor = Calculator;
 Calculator.prototype.add = function() {
 
     var material = new THREE.MeshPhongMaterial( {color: 0x00CC00,shading: THREE.SmoothShading});
-    var cal = new THREE.Mesh( new THREE.CylinderGeometry( 0, 0.3, 0.6, 32),material);
+    var cal = new THREE.Mesh( new THREE.CylinderGeometry( 0, 0.1, 0.4, 32),material);
 
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
-    this.speed.push(Math.random() * (1.25-.01) + .01);
+    this.speed.push(Math.random() * (1 - 0.1) + 0.1);
 
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 

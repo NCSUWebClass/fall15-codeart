@@ -12,12 +12,13 @@ winTab = new WindowsTab(0);
 berry = new Raspberry(0);
 lightIntense = 1.25; //normal = 1.25 sunset = 0.75 dark = 0.5
 
-
 function init() {
     scene = new THREE.Scene();
-    clock = new THREE.Clock();
     date = new Date(); //needed to do time stuff
+    console.log(date.getHours());
     //add objects to scene methods
+    winTab.add();
+    winTab.add();
     for(var i = 0; i < 9; i++){
        switch(i){
            case 0:
@@ -95,11 +96,11 @@ function initEscher() {
     loader.load('./models/lent.dae', function(result) {
         var dae = result.scene;
         dae.rotateY(-0.785398); //in rads
-        dae.translateY(1);
+        //dae.translateY(-0.5);
         dae.rotation.x = 25;
-        dae.scale.x = 0.25;
-        dae.scale.y = 0.2;
-        dae.scale.z = 0.25;
+        dae.scale.x = dae.scale.y = dae.scale.z = 0.20;
+        //dae.scale.y = 0.20;
+        //dae.scale.z = 0.20;
         scene.add(dae);
     });
 }
@@ -149,7 +150,6 @@ function render() {
     berry.move();
     lap.rot();
     lap.move();
-    //orbit();
     renderer.render(scene, camera);
 
 }

@@ -14,14 +14,14 @@ BambooTab.prototype.constructor = BambooTab;
 //add to scene
 BambooTab.prototype.add = function() {
 
-    var geometry = new THREE.CylinderGeometry( 0.2, 0.2, 0.6, 32 );
+    var geometry = new THREE.CylinderGeometry( 0.07, 0.07, 0.6, 32 );
     var material = new THREE.MeshPhongMaterial( {color: 0xF9DE60, shading: THREE.SmoothShading} );
     var boo = new THREE.Mesh( geometry, material );
 
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
-    this.speed.push(Math.random() * (1.25-.01) + .01);
+    this.speed.push(Math.random() * (1 - 0.1) + 0.1);
 
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 

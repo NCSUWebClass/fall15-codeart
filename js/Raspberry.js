@@ -15,7 +15,7 @@ Raspberry.prototype.constructor = Raspberry;
 //add to scene
 Raspberry.prototype.add = function() {
 
-    var size = 0.09;
+    var size = 0.05;
     var geometry = new THREE.SphereGeometry(size,32,32);
     var material = new THREE.MeshPhongMaterial( {color: 0xEA4B53,shading: THREE.SmoothShading});
     var berry = new THREE.Object3D();
@@ -136,7 +136,7 @@ Raspberry.prototype.add = function() {
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
-    this.speed.push(Math.random() * (1.25-.01) + .01);
+    this.speed.push(Math.random() * (1 - 0.1) + 0.1);
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 
     this.obj.push(berry);

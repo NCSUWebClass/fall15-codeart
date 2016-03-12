@@ -15,22 +15,22 @@ Ardunio.prototype.constructor = Ardunio;
 //add to scene
 Ardunio.prototype.add = function() {
 
-    var size = 0.15;
-    var tub = 0.07;
+    var size = 0.1;
+    var tub = 0.05;
     var geometry = new THREE.TorusGeometry(size, tub,32,32);
     var material = new THREE.MeshPhongMaterial( {color: 0xBF74B4,shading: THREE.SmoothShading});
     var mesh1 = new THREE.Mesh( geometry,material);
     var ard = new THREE.Object3D();
     ard.add(mesh1);
     var mesh2 = new THREE.Mesh( geometry,material);
-    mesh2.position.x = 0.15*2;
+    mesh2.position.x = size * 2;
     ard.add(mesh2);
 
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
 
-    this.speed.push(Math.random() * (1.25-.01) + .01);
+    this.speed.push(Math.random() * (1 - 0.1) + 0.1);
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 
     this.obj.push(ard);

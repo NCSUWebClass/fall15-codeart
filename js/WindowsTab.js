@@ -14,14 +14,14 @@ WindowsTab.prototype.constructor = WindowsTab;
 //add to scene
 WindowsTab.prototype.add = function() {
 
-    var geometry = new THREE.CylinderGeometry( 0, 0.3, 0.6, 4 );
+    var geometry = new THREE.CylinderGeometry( 0, 0.1, 0.2, 4 );
     var material = new THREE.MeshPhongMaterial( {color: 0xF8A5B7, shading: THREE.FlatShading} );
     var winTab = new THREE.Mesh( geometry, material );
 
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
-    this.speed.push(Math.random() * (1.25-.01) + .01);
+    this.speed.push(Math.random() * (1 - 0.1) + 0.1);
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 
     this.obj.push(winTab);

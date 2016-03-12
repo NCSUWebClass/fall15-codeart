@@ -5,6 +5,7 @@ function MacBook(sound) {
     this.dur = new Array();
     this.dir = new Array();
     this.speed = new Array();
+    this.ring = new Array();
 };
 
 MacBook.prototype = Object.create(Shape.prototype);
@@ -17,20 +18,17 @@ MacBook.prototype.add = function() {
     //var material = new THREE.MeshPhongMaterial( {color: 0x00C1B5,shading: THREE.SmoothShading});
     var material = new THREE.MeshPhongMaterial( {color: 0x00C1B5,shading: THREE.FlatShading});
     //mac = new THREE.Mesh( new THREE.SphereGeometry(0.35,32,32),material);
-    var mac = new THREE.Mesh( new THREE.SphereGeometry(0.35,4,4),material);
+    var mac = new THREE.Mesh( new THREE.SphereGeometry(0.15,4,4),material);
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
+    //this.ring.push(Math.random() * (5 - 4) + 4);
 
-    this.speed.push(Math.random() * (1.25-.01) + .01);
+    this.speed.push(Math.random() * (1 - 0.1) + 0.1);
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 
     this.obj.push(mac);
     scene.add(mac);
-}
-
-MacBook.prototype.coord = function(){
-    return obj.position.x + "," + obj.position.y;
 }
 
 MacBook.prototype.move = function() {
@@ -39,32 +37,32 @@ MacBook.prototype.move = function() {
     for(var i = 0; i < this.obj.length; i++) {
         switch(this.dir[i]) {
             case 1:
-                this.obj[i].position.x = Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
-                this.obj[i].position.z = -Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
+                this.obj[i].position.x = Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
+                this.obj[i].position.z = -Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
                 this.obj[i].position.y = -Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 1.5;
                 break;
             case 2:
-                this.obj[i].position.x = -Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
-                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
+                this.obj[i].position.x = -Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
+                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 5;
                 this.obj[i].position.y = -Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 1.5; //diagonal?
                 break;
             case 3:
-                this.obj[i].position.x = Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
-                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
+                this.obj[i].position.x = Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
+                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
                 this.obj[i].position.y = Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 1.5; //diagonal?
                 break;
-            case 4:
-                this.obj[i].position.x = Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
-                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
+            case this.ring[i]:
+                this.obj[i].position.x = Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
+                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
                 this.obj[i].position.y = -Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 1.5; //diagonal?
                 break;
             case 5:
-                this.obj[i].position.x = -Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
-                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
+                this.obj[i].position.x = -Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
+                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
                 break;
             case 6:
-                this.obj[i].position.x = Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
-                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4;
+                this.obj[i].position.x = Math.cos(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
+                this.obj[i].position.z = Math.sin(this.dur[i].getElapsedTime() * this.speed[i]) * 4.75;
                 break;
         }
     }

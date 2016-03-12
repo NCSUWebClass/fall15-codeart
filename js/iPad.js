@@ -14,20 +14,20 @@ iPad.prototype.constructor = iPad;
 //add to scene
 iPad.prototype.add = function() {
 
-    var size = 0.25;
-    var tub = 0.05;
+    var size = 0.20;
+    var tub = 0.04;
     var geometry = new THREE.TorusGeometry(size, tub,32,32)
     var material = new THREE.MeshPhongMaterial( {color: 0x7F95CC,shading: THREE.SmoothShading});
     var mesh1 = new THREE.Mesh( geometry,material);
     var pad = new THREE.Object3D();
     pad.add(mesh1);
-    var mesh2 = new THREE.Mesh(new THREE.SphereGeometry(0.15,32,32),material);
+    var mesh2 = new THREE.Mesh(new THREE.SphereGeometry(0.1,32,32),material);
     pad.add(mesh2);
 
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
-    this.speed.push(Math.random() * (1.25-.01) + .01);
+    this.speed.push(Math.random() * (1 - 0.1) + 0.1);
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 
     this.obj.push(pad);

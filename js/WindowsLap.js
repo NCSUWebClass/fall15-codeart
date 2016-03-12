@@ -17,12 +17,12 @@ WindowsLap.prototype.add = function() {
 
     var material = new THREE.MeshPhongMaterial( {color: 0xA2E0F4,shading: THREE.FlatShading});
     //var material = new THREE.MeshPhongMaterial( {color: 0xEE4858});
-    var lap = new THREE.Mesh( new THREE.CubeGeometry(0.6,0.6,0.6),material);
+    var lap = new THREE.Mesh( new THREE.CubeGeometry(0.2,0.2,0.2),material);
     //cube = new THREE.Mesh(new THREE.CubeGeometry(2, 2, 2), new THREE.MeshPhongMaterial({color: 0xEE4858, shading: THREE.FlatShading}));
     var duration = new THREE.Clock();
     duration.start();
     this.dur.push(duration);
-    this.speed.push(Math.random() * (1.25-.01) + .01);
+    this.speed.push(Math.random() * (1 - 0.1) + 0.1);
     this.dir.push(Math.floor(Math.random() * 6) + 1);
 
     this.obj.push(lap);
