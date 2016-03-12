@@ -14,8 +14,7 @@ lightIntense = 1.25; //normal = 1.25 sunset = 0.75 dark = 0.5
 
 function init() {
     scene = new THREE.Scene();
-    date = new Date(); //needed to do time stuff
-    console.log(date.getHours());
+    
     //add objects to scene methods
     winTab.add();
     winTab.add();
@@ -27,63 +26,63 @@ function init() {
                     book.add();
                 }
                 break;
-        
+
            case 1:
                 var deviceNum = getNumCheckedOut(i);
                 for(var j = 0; j < deviceNum; j++) {
                     lap.add();
                 }
                 break;
-        
+
            case 2:
                 var deviceNum = getNumCheckedOut(i);
                 for(var j = 0; j < deviceNum; j++) {
                     ipa.add();
                 }
                 break;
-        
+
            case 3:
                 var deviceNum = getNumCheckedOut(i);
                 for(var j = 0; j < deviceNum; j++) {
                     ti83.add();
                 }
                 break;
-        
+
            case 4:
                 var deviceNum = getNumCheckedOut(i);
                 for(var j = 0; j < deviceNum; j++) {
                     winTab.add();
                 }
                 break;
-        
+
            case 5:
                 var deviceNum = getNumCheckedOut(i);
                 for(var j = 0; j < deviceNum; j++) {
                     boo.add();
                 }
                 break;
-        
+
            case 6:
                 var deviceNum = getNumCheckedOut(i);
                 for(var j = 0; j < deviceNum; j++) {
                     berry.add();
                 }
                 break;
-        
+
            case 7:
                 var deviceNum = getNumCheckedOut(i);
                 for(var j = 0; j < deviceNum; j++) {
                     ard.add();
                 }
                 break;
-        
+
            case 8:
                 var deviceNum = getNumCheckedOut(i);
                 for(var j = 0; j < deviceNum; j++) {
                     chrm.add();
                 }
                 break;
-        }        
+        }
     }
     initEscher();
     initCamera();
@@ -153,6 +152,5 @@ function render() {
     renderer.render(scene, camera);
 
 }
-
 init();
 render();

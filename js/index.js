@@ -35,6 +35,24 @@ var colors = {
     meshdif: '#FFFFFF'
 }
 
+function setTheme(){
+	var date = new Date();
+	var currentHour = date.getHours();
+	if((currentHour >= 5 && currentHour < 7) || (currentHour >= 18 && currentHour < 20)){
+		//Colors for morning/evening sunset/sunrise. Used between 5-7am and 6-8pm
+        colors.ambient = "#880066";
+        colors.diffuse = "#ff8800";
+	}else if(currentHour >= 7 && currentHour < 18){
+        //Colors for daytime
+		colors.ambient = colors.diffuse = "#00D1FF";
+	}else{
+        //Night time
+        colors.ambient = "#8F16E3";
+        colors.diffuse = "#0CDCB6";
+    }
+}
+
+
 //times: light: 5-7 sunset, 7-6, 6-8 sunset, 8-5 dark
 
 
@@ -71,6 +89,7 @@ FSS.Utils = {
  * @see https://gist.github.com/paulirish/1579671
  */
 (function() {
+    setTheme();
 
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -1517,4 +1536,3 @@ FSS.SVGRenderer.prototype.formatStyle = function(color) {
     initialise();
 
 })();
-
