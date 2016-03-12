@@ -1,19 +1,28 @@
 var allIDs = new Array();
+allIDs.push("2081286");     //Macbook
+allIDs.push("2729663");     //WinLaptop
+allIDs.push("2260031");     //iPad
+allIDs.push("1983097");     //TI
+allIDs.push("2736849");     //WinSurface
+allIDs.push("2758462");     //Bamboo
+allIDs.push("2736846");     //Pi
+allIDs.push("2739182");     //Arduino
+allIDs.push("3310348");     //Chromebook
 
 /*
  Parses the "HUNT" sections out of the GET response
  @param {String} - GET response from the library server
- @param {id} id - id of specific lendable device 
+ @param {id} id - id of specific lendable device
 */
 function parseResponse(response, id){
   response = response.replace(/\s+/g,' '); //replaces excess spaces with just one
   var openParens = 0;
   var closeParens = 0;
-  var huntCount = 0; 
+  var huntCount = 0;
   var regExpHunt = /\[hunt\]/gi; //parses out "[HUNT]"
   var allHunts = []; //all devices that have "HUNT" as an available location
 
-  //Counts the number of "[HUNT]"s in the string provided 
+  //Counts the number of "[HUNT]"s in the string provided
   while(true){
     var match = regExpHunt.exec(response);
     if(match != null){
@@ -47,7 +56,7 @@ function parseResponse(response, id){
     allHunts.push(huntSection);
   }
 
-  return getDeviceAvailability(allHunts,id); 
+  return getDeviceAvailability(allHunts,id);
 }
 
 /* Assigns the name of the item to the id */
@@ -93,7 +102,7 @@ function assignName(id){
 /*
  Parses out amount of device in each availability status
  @param {Array} sections - parsed out "HUNT" sections of GET response
- @param {id} id - id of specific lendable device 
+ @param {id} id - id of specific lendable device
 */
 function getDeviceAvailability(sections, id){
     var regex = /\[\w+\] => \d+/gi;
@@ -151,6 +160,39 @@ function getDeviceData(id){
       var deviceResponse = parseResponse(request.responseText, id);
       //console.log(request.responseText);
      // document.write("Item "+id+" has "+deviceResponse.techlend+" available to be lent out and "+deviceResponse.checkedout+" checked out already<br>"); //FIXME uncomment when in production, call upon response array to get data
+     var deviceNum = getNumCheckedOut(id);      //number of devices to add
+     for(var j = 0; j < deviceNum; j++) {
+         switch(id){
+            case "2081286":
+                book.add();
+                break;
+            case "2729663":
+                lap.add();
+                break;
+            case "2260031":
+                ipa.add();
+                break;
+            case "1983097":
+                ti83.add();
+                break;
+            case "2736849":
+                winTab.add();
+                break;
+            case "2758462":
+                boo.add();
+                break;
+            case "2736846":
+                berry.add();
+                break;
+            case "2739182":
+                ard.add();
+                break;
+            case "3310348":
+                chrm.add();
+                break;
+         }
+     }
+
     }
   }
   request.open("GET", "http://www.lib.ncsu.edu/websiteclassic/device-test/index.php?key=" + id,true);
@@ -160,7 +202,7 @@ function getDeviceData(id){
 /*
  Function to parse numbers from a text file, separated by the  newline character '/n'
  @param {String} filename - the name of the file containing the numbers
- @param {Function} callback - the function to call when done processing the file   
+ @param {Function} callback - the function to call when done processing the file
 */
 function parseFile(filename, callback) {
   //create empty array
@@ -169,7 +211,7 @@ function parseFile(filename, callback) {
   //open file reader
   var req = new XMLHttpRequest();
   req.open('GET',filename,true);
-  
+
   //when file is opened
   req.onreadystatechange = function() {
     if(req.readyState == 4 && req.status ==200) {
@@ -187,17 +229,20 @@ function parseFile(filename, callback) {
     //return the array
     callback(contents);
     }
-  }  
+  }
   req.send();
 }
 
 function getAll(responses) {
     var file = "deviceids.txt";
-    parseFile(file, function(id) {
+    /*parseFile(file, function(id) {
         id.forEach(function(deviceid) {
             allIDs.push(deviceid);
             getDeviceData(deviceid);
         });
+    });*/
+    allIDs.forEach(function(deviceid){
+        getDeviceData(deviceid);
     });
     //setTimeout(function() {
     //  console.log(responses);
@@ -207,9 +252,9 @@ function getAll(responses) {
 
 //returns number of devices checked out, given index
 //into allIDs[]
-function getNumCheckedOut(index){
+function getNumCheckedOut(id){
   var numCheckedOut;
-  var id = allIDs[index];
+  //var id = allIDs[index];
     responses.forEach(function(device){
         if(device.id == id){
             numCheckedOut = device.checkedout;

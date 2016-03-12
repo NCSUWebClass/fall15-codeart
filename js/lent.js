@@ -12,11 +12,11 @@ winTab = new WindowsTab(0);
 berry = new Raspberry(0);
 lightIntense = 1.25; //normal = 1.25 sunset = 0.75 dark = 0.5
 
-function init() {
+function initStart() {
     scene = new THREE.Scene();
 
     //add objects to scene methods
-    winTab.add();
+    /*winTab.add();
     book.add();
     boo.add();
     lap.add();
@@ -24,8 +24,9 @@ function init() {
     ard.add();
     ipa.add();
     chrm.add();
-    berry.add();
-    for(var i = 0; i < 9; i++){
+    berry.add();*/
+
+    /*for(var i = 0; i < 9; i++){
        switch(i){
            case 0:
                 var deviceNum = getNumCheckedOut(i);
@@ -90,7 +91,7 @@ function init() {
                 }
                 break;
         }
-    }
+    }*/
     initEscher();
     initCamera();
     initRenderer();
@@ -159,6 +160,5 @@ function render() {
     renderer.render(scene, camera);
 
 }
-
-init();
+initStart();
 render();
