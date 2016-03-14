@@ -227,7 +227,7 @@ function parseFile(filename, callback) {
         }
       }
     //return the array
-    callback(contents);
+    setTimeout(function() {callback(contents); }, 250);
     }
   }
   req.send();
